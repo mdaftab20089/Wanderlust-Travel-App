@@ -1,0 +1,32 @@
+<% layout("/layouts/boiler") %>
+
+  </head>
+  <body>
+    <h3>Create a New Listing</h3>
+    <form method="POST" action="/listing">
+      <input name="list[title]" placeholder="enter title" type="text" />
+      <br /><br />
+      <textarea
+        name="list[description]"
+        placeholder="enter description"
+      ></textarea>
+      <br /><br />
+      <input
+        name="list[image]"
+        placeholder="enter image URL/Link"
+        type="text"
+      />
+      <br /><br />
+      <input name="list[price]" placeholder="enter price" type="number" />
+      <br /><br />
+      <input name="list[country]" placeholder="enter country" type="text" />
+      <br /><br />
+      <input
+        name="list[location]"
+        placeholder="enter location"
+        type="text"
+      />
+      <br /><br />
+      <button>Submit</button>
+    </form>
+  </body>

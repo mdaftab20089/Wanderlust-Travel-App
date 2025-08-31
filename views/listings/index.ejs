@@ -1,0 +1,15 @@
+<% layout("/layouts/boiler") %>
+<body>
+<h3>This is Wanderlust data..</h3>
+<!-- <form action="/listing/new" method="get">
+    <button>Create New Listing</button>
+</form> -->
+<br>
+<ul>
+    <% for(let listing of AllListings) { %>
+        <li>
+            <a href="/listing/<%= listing._id %>"><%= listing.title %></a>
+        </li>
+    <% } %>
+</ul>
+</body>

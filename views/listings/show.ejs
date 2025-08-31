@@ -1,0 +1,16 @@
+<% layout("/layouts/boiler") %>
+
+<body>
+    <h3>WanderLust Data</h3>
+    <ul>
+        <li><%= AllListings.title %></li>
+        <li><%= AllListings.description %></li>
+        <li><%= AllListings.location %></li>
+        <li>&#x20B9; <%= AllListings.price.toLocaleString("en-IN") %></li>
+        <li><%= AllListings.country %></li>
+    </ul>
+    <a href="/listing/<%= AllListings._id %>/edit"><button>edit the info</button></a>
+    <br> <br>
+    <form method ="post"  action="/listing/<%= AllListings._id %>?_method=delete"><button>delete this post</button></form>
+
+</body>

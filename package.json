@@ -1,0 +1,31 @@
+{
+  "name": "major_project",
+  "version": "1.0.0",
+  "description": "\"A Full Stack Project For Finding And Share Hotels in different Cities\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdaftab20089/Major_Project.git"
+  },
+  "keywords": [
+    "\"Aftab",
+    "Rahi\""
+  ],
+  "author": "\"Md Aftab\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdaftab20089/Major_Project/issues"
+  },
+  "homepage": "https://github.com/mdaftab20089/Major_Project#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.1.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10"
+  }
+}
