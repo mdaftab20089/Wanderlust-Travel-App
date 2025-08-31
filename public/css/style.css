@@ -1,7 +1,13 @@
-/* body{
-    background-color: pink;
-} */
+body{
+    font-family: "Plus Jakarta Sans",sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
+.container {
+    flex: 1;
+}
 .navbar {
     background-color: white;
     height: 4rem;
@@ -14,4 +20,85 @@
 
 .nav-link{
     color: #222222 !important;
+}
+
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+
+
+.f-info-links,.f-info-socials,f-info-brand {
+    width: 100%;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+.f-info {
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    justify-content: center;
+    align-items: space-evenly;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+/* Cards */
+
+.card{
+    border: none !important;
+    margin-bottom: 1rem;
+}
+
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body{
+    padding: 0 !important;
+}
+.card-text-p{
+    font-weight:200px !important;
+}
+
+.card-title a{
+    text-decoration: none !important;
+    color: #222222 !important;
+}
+
+.card-img-overlay {
+    opacity: 0;
+    transition:0.5s ease-in-out;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.show-img{
+    height: 30vh;
+    width: 50vh;
+}
+.btns{
+    display: flex;
+}
+.btn-delete{
+    margin-left: 1rem;
 }
