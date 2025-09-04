@@ -3,17 +3,16 @@
 <body>
     <div class="row mt-3">
         <div class="col-8 offset-2">
-        <div class="card col-8 offset-2">
-            <h3>WanderLust Hotels</h3>
+            <h3><%= AllListings.title %></h3>
             <img src="<%= AllListings.image.url %>" class="card-img-top show-img" alt="listing-image">
             <div class="card-body mt-1">
                 <p class="card-text">
-                    <b><%= AllListings.title %></b> <br> 
                     <%= AllListings.description %> <br> <br>
                     <span>Price :- </span>&#x20B9; <%= AllListings.price.toLocaleString("en-IN") %> <br> <br>
                     <span>Location :- </span><%= AllListings.location %> <br> <br>
                     <span>Country :- </span><%= AllListings.country %>
                 </p>
+                <div class="invalid-feedback">Please enter some comments for review</div>
                 <div class="btns">
                     <a href="/listing/<%= AllListings._id %>/edit"><button class="btn btn-dark add-btn ">edit </button></a>
                 <form method ="post"  action="/listing/<%= AllListings._id %>?_method=delete"><button class="btn btn-dark btn-delete">delete</button></form>
@@ -21,6 +20,25 @@
             </div>
            </div>
         </div>
-</div>
-</div>
+
+      <div class=" col-8 offset-2">
+        <hr>
+           <h4>Leave a review</h4>
+           <form action="/listing/<%= AllListings.id %>/review" method="post" novalidate class="needs-validation">
+            <div class="mb-3 mt-3">
+            <div>
+            <label for="rating" class="form-label" >Rating</label>
+            <input type="range" class="form-range" id="customRange1" min="0" max="5" name="review[rating]">
+            </div>
+            <div>
+            <label for="comment" id="comment" class="form-label">Comments</label>
+            <textarea name="review[comment]" id="comment" col="10" rows="5" class="form-control" required> 
+            </textarea>
+            </div>  <br>
+            <button class="btn btn-outline-dark">Submit</button>
+           </form>
+      </div>
+      </div>
+      
+
 </body>

@@ -1,16 +1,15 @@
 <% layout("/layouts/boiler") %>
 
-</head>
+
 <body>
   <div class="row">
     <div class="col-8 offset-2"> 
       <br>
       <h3>Edit The Place</h3>
 
-      <form method="POST" action="/listing/<%= listing._id %>?_method=PUT">
+      <form method="POST" action="/listing/<%= listing._id %>?_method=PUT" novalidate class="needs-validation"> 
         <div class="row">
           <div class="col">
-
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
               <input 
@@ -18,7 +17,11 @@
                 value="<%= listing.title %>" 
                 type="text"  
                 class="form-control"
+                required
               />
+              <div class="invalid-feedback">
+            Please provide a valid Title.
+            </div>
             </div>
 
             <div class="mb-3">
@@ -26,7 +29,13 @@
               <textarea
                 name="listing[description]"
                 class="form-control"
-              ><%= listing.description %></textarea>
+                required
+              >
+            <%= listing.description %>
+            </textarea>
+            <div class="invalid-feedback">
+            Please provide a valid Description.
+            </div>
             </div>
 
             <div class="mb-3">
@@ -36,7 +45,11 @@
                 value="<%= listing.image.url %>"
                 type="text"
                 class="form-control"
+                required
               />
+              <div class="invalid-feedback">
+            Please provide a valid Image Link.
+            </div>
             </div>
 
             <div class="row">
@@ -47,7 +60,11 @@
                   value="<%= listing.price %>" 
                   type="number" 
                   class="form-control"
+                  required
                 />
+                <div class="invalid-feedback">
+            Please provide a valid Price.
+            </div>
               </div>
 
               <div class="mb-3 col-md-8">
@@ -57,8 +74,12 @@
                   value="<%= listing.country %>"
                   type="text"
                   class="form-control"
+                  required
                 />
               </div>
+              <div class="invalid-feedback">
+            Please provide a valid Country Name.
+            </div>
             </div>
             
             <div class="mb-3">
@@ -68,7 +89,11 @@
                 value="<%= listing.location %>"
                 type="text"
                 class="form-control"
+                required
               />
+              <div class="invalid-feedback">
+            Please provide a valid Location.
+            </div>
             </div>
 
             <br />
@@ -78,6 +103,8 @@
         </div>
       </form>
 
+
     </div>
   </div>
+  <script src="/js/script.js"></script>
 </body>

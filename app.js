@@ -3,6 +3,7 @@
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
+// requiring listing schema..
 const Listing=require("./Models/listing.js");
 const path =require("path");
 app.set("view engine","ejs");
@@ -12,8 +13,10 @@ let methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,"/public")));
 const engine=require("ejs-mate");
+const wrapAsync=require("./utils/wrapAsync.js");
 app.engine("ejs", engine);
-
+const Review=require("./Models/review.js");
+const expres=require("./utils/expressError.js");
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/wanderlust');
 }
@@ -39,11 +42,11 @@ app.get("/listing/new", (req, res) => {
     res.render("listings/new")
 });
 
-app.post("/listing",async (req,res)=>{
+app.post("/listing",wrapAsync((req,res,next)=>{
     const newList=new Listing(req.body.list);
-    await newList.save();
+    newList.save();
     res.redirect("/listing");
-});
+}));
 // show route..
 app.get("/listing/:id",async (req,res)=>{
     let {id}=req.params;
@@ -69,6 +72,24 @@ app.delete("/listing/:id",async (req,res)=>{
     res.redirect("/listing");
 });
 
+// reviews ka post router
+
+app.post("/listing/:id/review",async (req,res)=>{
+    let listing=await Listing.findById(req.params.id);
+    let newReview=new Review(req.body.review);
+    listing.reviews.push(newReview);
+    await listing.save();
+    await newReview.save();
+    console.log("new review saved");
+    res.redirect(`/listing/${listing._id}`);
+
+});
+
+
+app.use((err,req,res,next)=>{
+    let {statuscode,message}=err;
+    res.status(statuscode).send(message);
+});
 
 app.listen(8080,()=>{
     console.log("app is listening on 8080");
