@@ -13,7 +13,7 @@
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
               <input 
-                name="listing[title]" 
+                name="list[title]" 
                 value="<%= listing.title %>" 
                 type="text"  
                 class="form-control"
@@ -27,7 +27,7 @@
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
               <textarea
-                name="listing[description]"
+                name="list[description]"
                 class="form-control"
                 required
               >
@@ -41,7 +41,7 @@
             <div class="mb-3">
               <label for="image" class="form-label">Enter New Image Link</label>
               <input
-                name="listing[image][url]"
+                name="list[image][url]"
                 value="<%= listing.image.url %>"
                 type="text"
                 class="form-control"
@@ -56,7 +56,7 @@
               <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Price</label>
                 <input 
-                  name="listing[price]" 
+                  name="list[price]" 
                   value="<%= listing.price %>" 
                   type="number" 
                   class="form-control"
@@ -70,7 +70,7 @@
               <div class="mb-3 col-md-8">
                 <label for="country" class="form-label">Country</label>
                 <input
-                  name="listing[country]"
+                  name="list[country]"
                   value="<%= listing.country %>"
                   type="text"
                   class="form-control"
@@ -85,7 +85,7 @@
             <div class="mb-3">
               <label for="location" class="form-label">Location</label>
               <input
-                name="listing[location]"
+                name="list[location]"
                 value="<%= listing.location %>"
                 type="text"
                 class="form-control"
