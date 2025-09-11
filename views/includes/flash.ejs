@@ -1,0 +1,21 @@
+<% if(success && success.length) { %>
+  <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
+    <strong>Heyy !</strong> <%= success %>
+    <span class="close-btn" style="position:absolute; top:8px; right:12px; cursor:pointer; font-size:20px;">&times;</span>
+  </div>
+<% } %>
+
+<% if (error && error.length) { %>
+  <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
+    <strong>Heyy !</strong> <%= error %>
+    <span class="close-btn" style="position:absolute; top:8px; right:12px; cursor:pointer; font-size:20px;">&times;</span>
+  </div>
+<% } %>
+
+<script>
+  document.querySelectorAll(".flash-message .close-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+      this.parentElement.style.display = "none";
+    });
+  });
+</script>

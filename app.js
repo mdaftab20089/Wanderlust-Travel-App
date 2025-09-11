@@ -2,26 +2,37 @@
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
-// requiring listing schema..
-const Listing=require("./Models/listing.js");
 const path =require("path");
+
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
+
 app.use(express.urlencoded({ extended: true }));
 let methodOverride = require('method-override')
 app.use(methodOverride('_method'))
+
 app.use(express.static(path.join(__dirname,"/public")));
+
 const engine=require("ejs-mate");
-const wrapAsync=require("./utils/wrapAsync.js");
 app.engine("ejs", engine);
-const Review=require("./Models/review.js");
-const ExpressError=require("./utils/ExpressError.js");
-const {listingSchema,reviewSchema}=require("./Schema.js");
-const listings=require("./routes/listing.js");
+
+const listingsRouter=require("./routes/listing.js");
+const reviewRouter=require("./routes/review.js");
+const userRouter=require("./routes/user.js");
+
+
+const flash=require("connect-flash");
+const session =require("express-session");
+
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User=require("./Models/user.js");
 
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/wanderlust');
 }
+
+
 
 main().
       then(()=>{
@@ -29,43 +40,57 @@ main().
       }).
     catch(err => console.log(err));
 
-app.use("/listing",listings);
-// home route..
+
+const sessionOptions={
+  secret:"mysupersecretcode",
+  resave:false,
+  saveUninitialized: true,
+  cookie: {
+    expires:Date.now()+1000*60*60*24*7,
+    maxAge:1000*60*60*24*7,
+    httpOnly:true
+  },
+}
+    // home route..
 app.get("/",(req,res)=>{
     res.send("Hyy , I am root");
 });
 
 
-const validateReview=(req,res,next)=>{
-    let {error}=reviewSchema.validate(req.body);   
-    if(error) {
-        let errMsg=error.details.map((el)=>el.message).join(",");
-        throw new ExpressError(400,error);
-    } else {
-        next();
-    }
-};
+app.use(session(sessionOptions));
+app.use(flash());
 
-// reviews ka post router
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.post("/listing/:id/review",validateReview,wrapAsync(async (req,res)=>{
-    let listing=await Listing.findById(req.params.id);
-    let newReview=new Review(req.body.review);
-    listing.reviews.push(newReview);
-    await listing.save();
-    await newReview.save();
-    console.log("new review saved");
-    res.redirect(`/listing/${listing._id}`);
-}));
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-// delete route for deleting the review
 
-app.delete("/listing/:id/review/:reviewId",wrapAsync(async(req,res)=>{
-    let{id,reviewId}=req.params;
-    await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}})
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/listing/${id}`);
-}));
+app.get("/demo",async (req,res)=>{
+  let fakeUser=new User({
+    email:"aftab@gmail.com",
+    username:"aftabrahi"
+  });
+  let registeredUser= await User.register(fakeUser,"abcd123");
+  res.send(registeredUser);
+})
+
+app.use((req,res,next)=>{
+  res.locals.success=req.flash("success");
+  res.locals.error=req.flash("error");
+  res.locals.currUser=req.user;
+  next();
+});
+
+app.use("/listing",listingsRouter);
+app.use("/",userRouter);
+app.use("/listing/:id/review",reviewRouter);
+
+
+
+
 // ---- central error handler (LAST) ----
 app.use((err, req, res, next) => {
   console.error(err.stack || err);
