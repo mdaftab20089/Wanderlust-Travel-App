@@ -1,8 +1,9 @@
 <% layout("/layouts/boiler") %>
 
   <body>
+    <br>
       <h3>Create a New Listing</h3>
-      <form method="POST" action="/listing"  class="needs-validation">
+      <form method="POST" action="/listing"  class="needs-validation" enctype="multipart/form-data">
         <div class="row">
           <div class="col">
 
@@ -23,12 +24,21 @@
         </div>
 
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="image" class="form-label">Image Link</label>
             <input
               name="list[image][url]"
               placeholder="enter image URL/Link"
               type="text"
+              class="form-control"
+            />
+        </div> -->
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Image</label>
+            <input
+              name="list[image]"
+              type="file"
               class="form-control"
             />
         </div>
@@ -72,7 +82,7 @@
            Please provide a valid Location.
           </div>
         </div>
-        <br />
+        <br>
         <button class="btn btn-dark add-btn">Submit</button>
         </div>
     </div>
