@@ -54,11 +54,7 @@ const sessionOptions={
     maxAge:1000*60*60*24*7,
     httpOnly:true
   },
-}
-    // home route..
-app.get("/",(req,res)=>{
-    res.send("Hyy , I am root");
-});
+};
 
 
 app.use(session(sessionOptions));
@@ -70,6 +66,14 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+//     // home route..
+// app.get("/", (req, res) => {
+//   // prefer view name without leading slash or extension
+//   res.render("HomePage/home");
+// });
+
 
 
 app.get("/demo",async (req,res)=>{
